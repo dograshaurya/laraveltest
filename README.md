@@ -1,7 +1,7 @@
-# laraveltest
+# Laraveltest
 
 
-Steps for installation: 
+**Steps for installation: **
 
 composer install
 npm install

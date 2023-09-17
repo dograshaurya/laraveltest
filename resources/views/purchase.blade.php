@@ -29,7 +29,7 @@
                             <div id="card-errors" role="alert"></div>
                         </div>
 
-                        <button type="submit" id="purchase-button" class="btn btn-primary">
+                        <button type="submit" id="purchase-button" class="btn btn-primary mt-3">
                             {{ __('Purchase') }}
                         </button>
                     </form>
@@ -49,7 +49,7 @@
     document.addEventListener('DOMContentLoaded', function() {
 
     // Create a Stripe client
-    var stripe = Stripe('pk_test_51NrPs4E5cOCsoHwdI1tX3br7S6V8zMou6jgU5EWDrD8cS1a3zop2405mtR4Y7kNZc7s6G2fT7s1SpVSZCQMp2krF00DUu1XAcS');
+    var stripe = Stripe("{{env('STRIPE_KEY')}}");
 
     // Create an instance of Elements
     var elements = stripe.elements();

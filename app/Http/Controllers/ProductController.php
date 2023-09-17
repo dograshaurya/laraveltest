@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function purchase(Request $request)
     {
         $productType = $request->input('product_type');
-        Stripe::setApiKey('sk_test_51NrPs4E5cOCsoHwdHWbeoyWI9v0aq7K0yXhrEHmMioCKUJ9XuurlwImRBQWXnA5XciUrsa1dsRfITSLntNbkXeYr00694MqCC9');
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
         try {
             $paymentIntent = PaymentIntent::create([
@@ -43,8 +43,7 @@ class ProductController extends Controller
                 Mail::to($user->email)->send(new PurchaseConfirmationMail($data));
             } 
             
-            // Redirect to a success page
-            return redirect()->route('home')->with('success', 'Product purchased successfully.');
+            return redirect()->route($productType.'.dashboard')->with('success', 'Product purchased successfully.');
         } catch (\Exception $e) {
             // Handle payment failure
             return back()->with('error', 'Payment failed. Please try again.');

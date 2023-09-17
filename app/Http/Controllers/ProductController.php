@@ -49,4 +49,40 @@ class ProductController extends Controller
             return back()->with('error', 'Payment failed. Please try again.');
         }
     }
+
+    public function refund($paymentIntentId){
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        try {
+        
+            // Create a refund for a PaymentIntent
+            $refund = \Stripe\Refund::create([
+                'payment_intent' => $paymentIntentId,
+                'amount' => 1000, // Specify the amount in cents (e.g., $10.00)
+            ]);
+
+            $user = Auth::user();
+            if ($user) {
+                $id = $user->id;
+                $user = User::find($id);
+                $user->card = '';
+                $user->stripe_id  = '';
+                $user->save();
+
+                $data = ['user'=>$user];
+                Mail::to($user->email)->send(new PurchasedCancelMail($data));
+            } 
+            
+            //Mail::to($user->email)->send(new PurchaseConfirmationMail($data));
+            // The $refund object will contain information about the refund if successful
+            // You can check $refund->status to see if it was successful ('succeeded')
+        } catch (\Stripe\Exception\InvalidRequestException $e) {
+            // Handle any errors related to the request
+            // You can check $e->getMessage() for details
+            return back()->with('error', 'Payment failed. Please try again.');
+        }
+        
+        
+
+    }
 }

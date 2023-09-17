@@ -25,23 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::check()){
-            $user = Auth::user();
-            if($user->stripe_id == '' && $user->stripe_id == null){
-                return view('purchase');
-            }else{
-                return redirect('dashboard');
-            }
-        }
-        
-    }
-
-    public function dashboard()
-    {
-        $user = Auth::user();
-        $role = $user->getRoleNames()->first();
-        $users = User::role($role)->get();
-        return view('customer.index',compact('users','role'));
+        return view('purchase');
     }
 
 }

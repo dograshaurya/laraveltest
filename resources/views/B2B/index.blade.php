@@ -32,7 +32,11 @@
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->card}}</td>
-                                    <td><a href="" class="btn btn-primary">Cancel</a></td>
+                                    <td><form method="post" action="{{route('B2C.refund')}}" onsubmit="return confirm('Are you sure you want to delete this subscription?');" >
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="stripe_id" value="{{$user->stripe_id}}"/>
+                                        <button type="submit" id="deleteBtn" class="btn btn-danger pull-right">Cancel</button>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -21,44 +21,37 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/purchase', function () {
     return view('purchase');
 })->name('buy');
 
-Route::get('/success', function () {
-    return view('success');
-});
-
 Route::post('/purchase', [ProductController::class, 'purchase'])->name('purchase');
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-
 /*------------------------------------------
 All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:Admin'])->group(function () {
   
     Route::get('/admin/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+    Route::post('delete_subs', [B2CDashboardController::class, 'refundPayment'])->name('admin.refund');
+
 });
   
 /*------------------------------------------
 All B2C Routes List
 --------------------------------------------*/
-/*Route::middleware(['auth', 'user-access:2'])->group(function () {
-  
-    Route::get('/B2C/dashboard', [DashboardController::class, 'B2CDashboard'])->name('B2C.dashhboard');
-});*/
 
-Route::group(['middleware' => ['auth', 'user-access:B2C Customer']], function () {
-    Route::get('b2c/dashboard', [B2CDashboardController::class, 'index'])->name('B2C.dashboard');
+Route::group(['prefix'=>'b2c','middleware' => ['auth', 'user-access:B2C Customer']], function () {
+    Route::get('dashboard', [B2CDashboardController::class, 'index'])->name('B2C.dashboard');
+    Route::post('delete_subs', [B2CDashboardController::class, 'refundPayment'])->name('B2C.refund');
+
 });
 
 /*------------------------------------------
 All B2B Routes List
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:B2B Customer'])->group(function () {
+Route::group(['prefix'=>'b2b','middleware' => ['auth', 'user-access:B2C Customer']], function () {
     Route::get('b2b/dashboard', [B2BDashboardController::class, 'index'])->name('B2B.dashboard');
+    Route::post('delete_subs', [B2BDashboardController::class, 'refundPayment'])->name('B2B.refund');
 });

@@ -16,4 +16,11 @@ class B2BDashboardController extends Controller
         $users = User::role($role)->get();
         return view('B2B.index',compact('users','role'));
     }
+
+    public function refundPayment(Request $request){
+        $payment_id = $request->stripe_id;
+        $contoller = new ProductController();
+        $call = $contoller->refund($payment_id);
+        redirect(route('buy'));
+    }
 }

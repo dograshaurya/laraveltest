@@ -41,19 +41,19 @@ Payment Failure: Handle cases where payment can be revoked after purchase.
 
 Access Cancellation: Send an email to the customer if their access is canceled for any reason.
 
-**Steps for installation: **
+# Steps for installation:
 
 composer install
 npm install
 npm run dev
 
-Seeders: 
+**Seeders: **
 
 Roles: php artisan db:seed --class=RolesSeeder 
 
 To create admin user: php artisan db:seed --class=CreateUsersSeeder
 
 
-To run: 
+**To run: **
 
 php artisan serve

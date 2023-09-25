@@ -10,7 +10,9 @@ This project consists of the following tasks:
 **Role-Based Access Control**: Implement three distinct roles within the system:
 
 Admin
+
 B2C Customer
+
 B2B Customer
 
 **Product Management and Role Assignment**: Create two products that users can purchase through the system.

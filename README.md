@@ -23,16 +23,22 @@ Key Pages:
 
 **Purchase Page**: Develop a page where users can view and select products for purchase through Stripe. The page should accept test credit card information and any other necessary registration details.
 Login Page: Create a secure login page using Laravel's authentication scaffolding.
+
 Dashboard Page: Build a dashboard that users can access after logging in. Depending on the user's role:
+
 If the user is a B2C customer, display the last 4 digits of the purchased card number under the label "B2C Purchase Details".
 If the user is a B2B customer, display the last 4 digits of the purchased card number under the label "B2B Purchase Details".
+
 If the user can cancel their purchase, provide a cancel button on the page.
+
 User Listing: Allow a super admin to view all users and cancel their access.
 
 **Key Actions/Events:**
 
 Purchase: Send an email to the customer about their purchase. Include their name in the email.
+
 Payment Failure: Handle cases where payment can be revoked after purchase.
+
 Access Cancellation: Send an email to the customer if their access is canceled for any reason.
 
 **Steps for installation: **
